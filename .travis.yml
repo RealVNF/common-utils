@@ -7,4 +7,4 @@ install:
 
 script:
   - flake8 src
-  - python setup.py test
+  - dummy-coord -n "res/networks/triangle.graphml" -sf "res/service_functions/abc.yaml" -c "res/config/sim_config.yaml" -i 50

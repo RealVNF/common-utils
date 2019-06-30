@@ -3,9 +3,13 @@ from collections import defaultdict
 import logging
 import os
 from random import uniform
-
-from dummy_env import DummySimulator
 from spinterface import SimulatorAction
+
+# select which simulator to use by (un-)commenting the corresponding imports
+from dummy_env import DummySimulator as Simulator
+# for use with the flow-level simulator https://github.com/RealVNF/coordination-simulation (after installation)
+# from siminterface.simulator import Simulator
+
 
 log = logging.getLogger(__name__)
 
@@ -70,7 +74,7 @@ def main():
     logging.basicConfig(level=logging.INFO)
     logging.getLogger("coordsim").setLevel(logging.WARNING)
     # creating the simulator
-    simulator = DummySimulator()
+    simulator = Simulator()
     init_state = simulator.init(os.path.abspath(args.network),
                                 os.path.abspath(args.service_functions),
                                 os.path.abspath(args.config), args.seed)
