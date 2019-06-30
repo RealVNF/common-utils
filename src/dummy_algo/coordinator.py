@@ -4,7 +4,7 @@ import logging
 import os
 from random import uniform
 from spinterface import SimulatorAction
-from common.common_functionaliies import round_off_list_to_1
+from common.common_functionalities import round_off_list_to_1
 
 # select which simulator to use by (un-)commenting the corresponding imports
 from dummy_env import DummySimulator as Simulator
