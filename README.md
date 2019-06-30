@@ -1,4 +1,4 @@
-# coord-interface
+# coord-env-interface
 Interface definition between coordination algorithms and environments. Includes a dummy algorithm and environment as example.
 
 ## Project structure
