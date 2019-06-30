@@ -22,6 +22,14 @@ To pass the information, we utilizes two data classes:
 * `SimulatorAction` to pass the scaling and placement to the environment.
 * `simulatorState` to report back the current State of the environment.
 
+## Installation
+
+Requires [Python 3.6](https://www.python.org/downloads/release/) and (recommended) [venv](https://docs.python.org/3/library/venv.html).
+
+```bash
+python setup.py install
+```
+
 ## Usage
 
 To use the interface you need to require this module and import the needed classes:
