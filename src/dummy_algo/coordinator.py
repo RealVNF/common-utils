@@ -8,6 +8,7 @@ from common.common_functionaliies import round_off_list_to_1
 
 # select which simulator to use by (un-)commenting the corresponding imports
 from dummy_env import DummySimulator as Simulator
+
 # for use with the flow-level simulator https://github.com/RealVNF/coordination-simulation (after installation)
 # from siminterface.simulator import Simulator
 
@@ -56,7 +57,6 @@ def get_schedule(nodes_list, sf_list, sfc_list):
                 # So we correct the sum only if the absolute difference is more than a tolerance(0.0000152587890625)
                 if abs(1.0 - sum(prob_list)) > 1 / 2 ** 16:
                     prob_list = round_off_list_to_1(prob_list)
-                assert abs(1.0 - sum(prob_list)) < 1 / 2 ** 16, "Sum of random probabilities not equal to 1.0"
                 for inner_node in nodes_list:
                     if len(prob_list) != 0:
                         schedule[outer_node][sfc][sf][inner_node] = prob_list.pop()
