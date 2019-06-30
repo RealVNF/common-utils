@@ -7,9 +7,9 @@ from spinterface import SimulatorAction
 from common.common_functionaliies import round_off_list_to_1
 
 # select which simulator to use by (un-)commenting the corresponding imports
-# from dummy_env import DummySimulator as Simulator
+from dummy_env import DummySimulator as Simulator
 # for use with the flow-level simulator https://github.com/RealVNF/coordination-simulation (after installation)
-from siminterface.simulator import Simulator
+# from siminterface.simulator import Simulator
 
 log = logging.getLogger(__name__)
 
