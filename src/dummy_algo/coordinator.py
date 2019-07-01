@@ -4,7 +4,7 @@ import logging
 import os
 from random import uniform
 from spinterface import SimulatorAction
-from common.common_functionalities import round_off_list_to_1
+from common.common_functionalities import round_off_list_to_1, accuracy
 
 # select which simulator to use by (un-)commenting the corresponding imports
 from dummy_env import DummySimulator as Simulator
@@ -67,8 +67,8 @@ def get_schedule(nodes_list, sf_list, sfc_list):
                 # this list may not sum to 1
                 random_prob_list = [uniform(0, 1) for _ in range(len(nodes_list))]
                 # Because of floating point precision (.59 + .33 + .08) can be equal to .99999999
-                # So we correct the sum only if the absolute difference is more than a tolerance(0.0000152587890625)
-                if abs(1.0 - sum(random_prob_list)) > 1 / 2 ** 16:
+                # So we correct the sum only if the absolute diff. is more than a tolerance(0.000000014901161193847656)
+                if abs(1.0 - sum(random_prob_list)) > accuracy:
                     random_prob_list = round_off_list_to_1(random_prob_list)
                 for inner_node in nodes_list:
                     if len(random_prob_list) != 0:
