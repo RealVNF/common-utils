@@ -4,12 +4,13 @@ import logging
 import os
 from random import uniform
 from spinterface import SimulatorAction
+from common.common_functionalities import round_off_list_to_1
 
 # select which simulator to use by (un-)commenting the corresponding imports
 from dummy_env import DummySimulator as Simulator
+
 # for use with the flow-level simulator https://github.com/RealVNF/coordination-simulation (after installation)
 # from siminterface.simulator import Simulator
-
 
 log = logging.getLogger(__name__)
 
@@ -47,12 +48,18 @@ def get_schedule(nodes_list, sf_list, sfc_list):
     for outer_node in nodes_list:
         for sfc in sfc_list:
             for sf in sf_list:
+                # this list may not sum to 1
                 random_prob_list = [uniform(0, 1) for _ in range(len(nodes_list))]
                 sum_prob = sum(random_prob_list)
+                # prob list with sum of all prob. equal to 1
+                prob_list = [round(prob / sum_prob, 2) for prob in random_prob_list]
+                # Because of floating point precision (.59 + .33 + .08) can be equal to .99999999
+                # So we correct the sum only if the absolute difference is more than a tolerance(0.0000152587890625)
+                if abs(1.0 - sum(prob_list)) > 1 / 2 ** 16:
+                    prob_list = round_off_list_to_1(prob_list)
                 for inner_node in nodes_list:
-                    if len(random_prob_list) != 0:
-                        prob = random_prob_list.pop()
-                        schedule[outer_node][sfc][sf][inner_node] = round(prob / sum_prob, 2)
+                    if len(prob_list) != 0:
+                        schedule[outer_node][sfc][sf][inner_node] = prob_list.pop()
                     else:
                         schedule[outer_node][sfc][sf][inner_node] = 0
     return schedule
