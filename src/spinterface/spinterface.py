@@ -22,6 +22,8 @@ class SimulatorAction:
             }
 
         << Schedule: Must include traffic distribution for all possible nodes. Even those that have a value of zero >>
+        The Sum of probabilities for each node of each SF needs to sum to 1.0
+        Use :func:`~common.common_functionalities.normalize_scheduling_probabilities` to normalize if needed.
         scheduling : dict
             {
                 'node id' : dict
