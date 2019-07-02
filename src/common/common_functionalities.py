@@ -1,7 +1,4 @@
 import numpy as np
-import logging
-
-log = logging.getLogger(__name__)
 
 # url = 'https://github.com/numpy/numpy/blob/master/numpy/random/mtrand.pyx#L778'
 # a threshold for floating point arithmetic error handling
@@ -13,26 +10,27 @@ def normalize_scheduling_probabilities(input_list: list) -> list:
     Handles these case:
         1) All the elements of the list are 0 -> the Probabilities are equally distributed
         2) When the sum(input_list) is away from 1.0 by an offset -> each prob. is divided by sum(input_list) and
-           the difference is added to the first element of the list.
-        3) An empty list is provided as input -> logs a warning and returns an empty list.
+           the difference of the sum of this new list to 1.0 is added to the first element of the list.
+        3) An empty list is provided as input -> simply returns an empty list.
     Because of [1] an error range of +-0.000000014901161193847656 in the sum has to be handled.
     [1]:  https://stackoverflow.com/questions/588004/is-floating-point-math-broken
     """
 
     output_list = []
-    # to handle the empty list case
+    # to handle the empty list case, we just return the empty list back
     if len(input_list) == 0:
-        log.warning("An empty list was provided for normalization, returning an empty list")
         return output_list
 
     offset = 1 - sum(input_list)
 
-    # a list will all elements 0, will be equally distributed to sum-up to 1.
+    # a list with all elements 0, will be equally distributed to sum-up to 1.
+    # sum can also be 0 if some elements of the list are negative.
+    # In our case the list contains probabilities and they are not supposed to be negative, hence the case won't arise
     if sum(input_list) == 0:
         output_list = [round(1 / len(input_list), 2)] * len(input_list)
+
     # Because of floating point precision (.59 + .33 + .08) can be equal to .99999999
     # So we correct the sum only if the absolute difference is more than a tolerance(0.000000014901161193847656)
-
     else:
         if abs(offset) > accuracy:
             sum_list = sum(input_list)
