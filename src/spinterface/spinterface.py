@@ -10,8 +10,8 @@ class SimulatorAction:
     """
 
     def __init__(self,
-                 placement,
-                 scheduling):
+                 placement: dict,
+                 scheduling: dict):
         """initializes all properties since this is a data class
 
         Parameters
@@ -104,10 +104,19 @@ class SimulatorAction:
             },
         }
 
-        action = SimulationAction(placement, schedule)
+        simulator_action = SimulationAction(placement, flow_schedule)
         """
         self.placement = placement
         self.scheduling = scheduling
+
+    def __repr__(self):
+        return "SimulatorAction({})".format(repr({
+            'placement': self.placement,
+            'scheduling': self.scheduling
+        }))
+
+    def __str__(self):
+        self.__repr__()
 
 
 class SimulatorState:
