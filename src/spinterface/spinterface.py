@@ -205,6 +205,8 @@ class SimulatorInterface:
     """
     Defines required method on the simulator object.
     """
+    def __init__(self, test_mode):
+        self.test_mode = test_mode
 
     def init(self, network_file: str, service_functions_file: str, config_file: str, seed: int) -> SimulatorState:
         """Creates a new simulation environment.
