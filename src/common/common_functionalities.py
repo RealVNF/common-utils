@@ -37,12 +37,12 @@ def normalize_scheduling_probabilities(input_list: list) -> list:
             # we divide each number in the list by the sum of the list, so that Prob. Distribution is approx. 1
             output_list = [round(prob / sum_list, 2) for prob in input_list]
         else:
-            output_list = input_list
+            output_list = input_list.copy()
 
     # 1 - sum(output_list) = the diff. by which the elements of the list are away from 1.0, could be +'ive /-i've
     new_offset = 1 - sum(output_list)
     if new_offset != 0:
         # the difference is added/subtracted from the 1st element of the list, which is also rounded to 2 decimal points
-        output_list[0] = round(output_list[0] + new_offset, 2)
+        output_list[0] = output_list[0] + new_offset
     assert abs(1 - sum(output_list)) < accuracy, "Sum of list not equal to 1.0"
     return output_list
