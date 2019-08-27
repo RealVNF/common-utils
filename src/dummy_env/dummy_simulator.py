@@ -135,7 +135,9 @@ class DummySimulator(SimulatorInterface):
                 'successful_flows': 30,
                 'dropped_flows': 3,
                 'in_network_flows': 32,
-                'avg_end_2_end_delay': 21
+                'avg_end2end_delay': 21,
+                'run_avg_end2end_delay': 42,
+                'run_total_processed_traffic': dict()
             },
             placement={
                 'pop0': ['a'],
