@@ -116,7 +116,7 @@ class SimulatorAction:
         }))
 
     def __str__(self):
-        self.__repr__()
+        return f"SimulatorAction(Placement: {self.placement}, Schedule: {self.scheduling})"
 
 
 class SimulatorState:
@@ -199,6 +199,9 @@ class SimulatorState:
         self.service_functions = service_functions
         self.traffic = traffic
         self.network_stats = network_stats
+
+    def __str__(self):
+        return f"SimulatorState(Network: {self.network}, Traffic: {dict(self.traffic)}, Stats: {self.network_stats})"
 
 
 class SimulatorInterface:
