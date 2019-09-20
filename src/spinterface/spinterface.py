@@ -201,7 +201,8 @@ class SimulatorState:
         self.network_stats = network_stats
 
     def __str__(self):
-        return f"SimulatorState(Network: {self.network}, Traffic: {dict(self.traffic)}, Stats: {self.network_stats})"
+        return f"SimulatorState(Network nodes: {self.network['nodes']}, Traffic: {dict(self.traffic)}, " \
+               f"Stats: {self.network_stats}, ...)"
 
 
 class SimulatorInterface:
