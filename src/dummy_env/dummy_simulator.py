@@ -10,10 +10,10 @@ class DummySimulator(SimulatorInterface):
     return a mixture of static and random values
     """
 
-    def __init__(self, test_mode=False):
+    def __init__(self, network_file: str, service_functions_file: str, config_file: str, test_mode=False):
         super(DummySimulator, self).__init__(test_mode)
 
-    def init(self, network_file: str, service_functions_file: str, config_file: str, seed: int,
+    def init(self, seed: int,
              trace=None) -> SimulatorState:
         """ returns fixed init state
 

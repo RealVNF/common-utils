@@ -93,10 +93,10 @@ def main():
     logging.basicConfig(level=logging.INFO)
     logging.getLogger("coordsim").setLevel(logging.WARNING)
     # creating the simulator
-    simulator = Simulator()
-    init_state = simulator.init(os.path.abspath(args.network),
-                                os.path.abspath(args.service_functions),
-                                os.path.abspath(args.config), args.seed)
+    simulator = Simulator(os.path.abspath(args.network),
+                          os.path.abspath(args.service_functions),
+                          os.path.abspath(args.config))
+    init_state = simulator.init(args.seed)
     log.info("Network Stats after init(): %s", init_state.network_stats)
     nodes_list = [node['id'] for node in init_state.network.get('nodes')]
     sf_list = list(init_state.service_functions.keys())
