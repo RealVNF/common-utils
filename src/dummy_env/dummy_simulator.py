@@ -45,6 +45,9 @@ class DummySimulator(SimulatorInterface):
         """
         return self.example_state_1
 
+    def get_active_ingress_nodes(self):
+        return ['pop0']
+
     @property
     def example_state_1(self):
         """ Returns a fixed instance of a simulator state
