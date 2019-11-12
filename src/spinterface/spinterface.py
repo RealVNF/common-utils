@@ -123,16 +123,8 @@ class SimulatorState:
     """
     Defines the state of the simulator environment.
     Contains all necessary information for an coordination algorithm.
-
-    TODO: use integer for ids
     """
-    def __init__(self,
-                 network,
-                 placement,
-                 sfcs,
-                 service_functions,
-                 traffic,
-                 network_stats):
+    def __init__(self, network, placement, sfcs, service_functions, traffic, network_stats):
         """initializes all properties since this is a data class
 
         Parameters
@@ -201,8 +193,7 @@ class SimulatorState:
         self.network_stats = network_stats
 
     def __str__(self):
-        return f"SimulatorState(Network nodes: {self.network['nodes']}, Traffic: {dict(self.traffic)}, " \
-               f"Stats: {self.network_stats}, ...)"
+        return f"SimulatorState(Network nodes: {self.network['nodes']}, Traffic: {dict(self.traffic)}, ...)"
 
 
 class SimulatorInterface:
@@ -212,18 +203,11 @@ class SimulatorInterface:
     def __init__(self, test_mode):
         self.test_mode = test_mode
 
-    def init(self, network_file: str, service_functions_file: str, config_file: str, seed: int) -> SimulatorState:
+    def init(self, seed: int) -> SimulatorState:
         """Creates a new simulation environment.
 
         Parameters
         ----------
-        network_file : str
-            (Absolute) path to the network description.
-        service_functions_file : str
-            (Absolute) path to the service function description file.
-        config_file : str
-            Config file with parameter settings for the simulator (eg, seed,
-            flow inter-arrival times, ...)
         seed : int
             Seed for reproducible randomness
 
