@@ -64,9 +64,8 @@ def create_input_file(target_dir, num_ingress, algo):
 
 def num_ingress(network_path):
     no_ingress = 0
-    with open(network_path, "r") as f:
-        network = nx.read_graphml(network_path, node_type=int)
-        for node in network.nodes(data=True):
-            if node[1]["NodeType"] == "Ingress":
-                no_ingress += 1
+    network = nx.read_graphml(network_path, node_type=int)
+    for node in network.nodes(data=True):
+        if node[1]["NodeType"] == "Ingress":
+            no_ingress += 1
     return no_ingress
