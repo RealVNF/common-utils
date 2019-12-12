@@ -1,4 +1,7 @@
 import numpy as np
+import os
+import yaml
+import networkx as nx
 
 # url = 'https://github.com/numpy/numpy/blob/master/numpy/random/mtrand.pyx#L778'
 # a threshold for floating point arithmetic error handling
@@ -49,3 +52,21 @@ def normalize_scheduling_probabilities(input_list: list) -> list:
         output_list[i] = output_list[i] + new_offset
     assert abs(1 - sum(output_list)) < accuracy, "Sum of list not equal to 1.0"
     return output_list
+
+
+def create_input_file(target_dir, num_ingress, algo):
+    input_file_loc = f"{target_dir}/input.yaml"
+    os.makedirs(f"{target_dir}", exist_ok=True)
+    with open(input_file_loc, "w") as f:
+        inputs = {"num_ingress": num_ingress, "algorithm": algo}
+        yaml.dump(inputs, f, default_flow_style=False)
+
+
+def num_ingress(network_path):
+    no_ingress = 0
+    with open(network_path, "r") as f:
+        network = nx.read_graphml(network_path, node_type=int)
+        for node in network.nodes(data=True):
+            if node[1]["NodeType"] == "Ingress":
+                no_ingress += 1
+    return no_ingress
