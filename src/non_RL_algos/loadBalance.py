@@ -66,8 +66,7 @@ def get_placement(nodes_list, sf_list):
 
 def get_schedule(nodes_list, sf_list, sfc_list):
     """  return a dict of schedule for each node of the network
-    for each node in the network, we generate floating point random numbers in the range 0 to 1
-        '''
+       '''
         Schedule is of the following form:
             schedule : dict
                 {
@@ -146,9 +145,9 @@ def main():
     placement = get_placement(nodes_list, sf_list)
     # Uniformly distributing the schedule for all Nodes
     schedule = get_schedule(nodes_list, sf_list, sfc_list)
+    action = SimulatorAction(placement, schedule)
     # iterations define the number of time we wanna call apply()
     for i in range(args.iterations):
-        action = SimulatorAction(placement, schedule)
         apply_state = simulator.apply(action)
         log.info("Network Stats after apply() # %s: %s", i + 1, apply_state.network_stats)
     copy_input_files(results_dir, os.path.abspath(args.network), os.path.abspath(args.service_functions),

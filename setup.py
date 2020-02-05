@@ -31,7 +31,9 @@ setup(
     zip_safe=False,
     entry_points={
         'console_scripts': [
-            "dummy-coord=dummy_algo.coordinator:main"
+            "dummy-coord=dummy_algo.coordinator:main",
+            "lb=non_RL_algos.loadBalance:main",
+            "sp=non_RL_algos.shortestPath:main"
         ],
     },
 )
