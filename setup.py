@@ -5,10 +5,8 @@ from setuptools import setup, find_packages
 os.system('pip install git+https://github.com/RealVNF/coordination-simulation.git')
 
 requirements = [
-    'numpy',
     'networkx',
     'PyYAML',
-    'coord-sim'
 ]
 
 test_requirements = [
@@ -16,7 +14,6 @@ test_requirements = [
     'nose2'
 ]
 
-dev_requirements = []
 
 setup(
     name='coord-interface',
@@ -28,10 +25,6 @@ setup(
     packages=find_packages('src'),
     install_requires=requirements + test_requirements,
     tests_require=test_requirements,
-    extras_require={
-        'dev': dev_requirements
-    },
-    test_suite='nose2.collector.collector',
     zip_safe=False,
     entry_points={
         'console_scripts': [
