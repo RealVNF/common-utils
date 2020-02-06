@@ -2,6 +2,7 @@
 import os
 from setuptools import setup, find_packages
 
+os.system('pip install git+https://github.com/RealVNF/coord-env-interface.git')
 os.system('pip install git+https://github.com/RealVNF/coordination-simulation.git')
 
 requirements = [
