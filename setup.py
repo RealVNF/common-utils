@@ -7,7 +7,8 @@ os.system('pip install git+https://github.com/RealVNF/coordination-simulation.gi
 requirements = [
     'numpy',
     'networkx',
-    'PyYAML'
+    'PyYAML',
+    'coord-sim'
 ]
 
 test_requirements = [
