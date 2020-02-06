@@ -1,14 +1,15 @@
 import argparse
-from collections import defaultdict
 import logging
 import os
 import random
+from collections import defaultdict
 from datetime import datetime
-from spinterface import SimulatorAction
+from pathlib import Path
+from shutil import copyfile
+
 from common.common_functionalities import normalize_scheduling_probabilities, create_input_file
 from siminterface.simulator import Simulator
-from shutil import copyfile
-from pathlib import Path
+from spinterface import SimulatorAction
 
 log = logging.getLogger(__name__)
 DATETIME = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -56,7 +57,7 @@ def get_placement(nodes_list, sf_list):
     Returns:
         a Dictionary with:
             key = nodes of the network
-            value = list of all the SFs in the network
+            value = list of all the SFs on the node
     """
     placement = defaultdict(list)
     for node in nodes_list:
@@ -145,14 +146,17 @@ def main():
     placement = get_placement(nodes_list, sf_list)
     # Uniformly distributing the schedule for all Nodes
     schedule = get_schedule(nodes_list, sf_list, sfc_list)
+    # Since the placement and the schedule are fixed , the action would also be the same throughout
     action = SimulatorAction(placement, schedule)
     # iterations define the number of time we wanna call apply()
     for i in range(args.iterations):
         apply_state = simulator.apply(action)
         log.info("Network Stats after apply() # %s: %s", i + 1, apply_state.network_stats)
+    # We copy the input files(network, simulator config....) to  the results directory
     copy_input_files(results_dir, os.path.abspath(args.network), os.path.abspath(args.service_functions),
                      os.path.abspath(args.config))
-    create_input_file(results_dir, len(ingress_nodes), "LoadBalance")
+    # Creating the input file in the results directory containing the num_ingress and the Algo used attributes
+    create_input_file(results_dir, len(ingress_nodes), "Load Balance")
 
 
 if __name__ == '__main__':
