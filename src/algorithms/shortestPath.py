@@ -4,10 +4,9 @@ import os
 import random
 from collections import defaultdict
 from datetime import datetime
-from pathlib import Path
-from shutil import copyfile
 
-from common.common_functionalities import normalize_scheduling_probabilities, create_input_file
+from common.common_functionalities import normalize_scheduling_probabilities, create_input_file, get_project_root, \
+    copy_input_files, get_ingress_nodes_and_cap
 from siminterface.simulator import Simulator
 from spinterface import SimulatorAction
 
@@ -15,39 +14,20 @@ log = logging.getLogger(__name__)
 DATETIME = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
 
-def copy_input_files(target_dir, network_path, service_path, sim_config_path):
-    """Create the results directory and copy input files"""
-    new_network_path = f"{target_dir}/{os.path.basename(network_path)}"
-    new_service_path = f"{target_dir}/{os.path.basename(service_path)}"
-    new_sim_config_path = f"{target_dir}/{os.path.basename(sim_config_path)}"
-
-    os.makedirs(target_dir, exist_ok=True)
-    copyfile(network_path, new_network_path)
-    copyfile(service_path, new_service_path)
-    copyfile(sim_config_path, new_sim_config_path)
-
-
-def get_ingress_nodes_and_cap(network):
-    """
-    Gets a NetworkX DiGraph and returns a list of ingress nodes in the network and the largest capacity of nodes
-    Parameters:
-        network: NetworkX Digraph
-    Returns:
-        ing_nodes : a list of Ingress nodes in the Network
-        node_cap : the single largest capacity of all the nodes of the network
-    """
-    ing_nodes = []
-    node_cap = {}
-    for node in network.nodes(data=True):
-        node_cap[node[0]] = node[1]['cap']
-        if node[1]["type"] == "Ingress":
-            ing_nodes.append(node[0])
-    return ing_nodes, node_cap
-
-
-def get_project_root():
-    """Returns project's root folder."""
-    return str(Path(__file__).parent.parent.parent)
+def get_closest_neighbours(network, nodes_list):
+    # Finding the closest neighbours to each node in the network. For each node of the network we maintain a list of
+    # neighbours sorted in increasing order of distance to it.
+    all_pair_shortest_paths = network.graph['shortest_paths']
+    closest_neighbours = defaultdict(list)
+    for source in nodes_list:
+        neighbours = defaultdict(int)
+        for dest in nodes_list:
+            if source != dest:
+                delay = all_pair_shortest_paths[(source, dest)][1]
+                neighbours[dest] = delay
+        sorted_neighbours = [k for k, v in sorted(neighbours.items(), key=lambda item: item[1])]
+        closest_neighbours[source] = sorted_neighbours
+    return closest_neighbours
 
 
 def next_neighbour(index, num_vnfs_filled, node, placement, closest_neighbours, sf_list, nodes_cap):
@@ -121,18 +101,8 @@ def get_placement_schedule(network, nodes_list, sf_list, sfc_list, ingress_nodes
             for sf in sf_list:
                 for dstn in nodes_list:
                     schedule[src][sfc][sf][dstn] = 0
-    # Finding the closest neighbours to each node in the network. For each node of the network we maintain a list of
-    # neighbours sorted in increasing order of distance to it.
-    all_pair_shortest_paths = network.graph['shortest_paths']
-    closest_neighbours = defaultdict(list)
-    for source in nodes_list:
-        neighbours = defaultdict(int)
-        for dest in nodes_list:
-            if source != dest:
-                delay = all_pair_shortest_paths[(source, dest)][1]
-                neighbours[dest] = delay
-        sorted_neighbours = [k for k, v in sorted(neighbours.items(), key=lambda item: item[1])]
-        closest_neighbours[source] = sorted_neighbours
+    # Getting the closest neighbours to each node in the network
+    closest_neighbours = get_closest_neighbours(network, nodes_list)
 
     # - For each Ingress node of the network we start by placing the first VNF of the SFC on it and then place the
     #  2nd VNF of the SFC on the closest neighbour of the Ingress, then the 3rd VNF on the closest neighbour of the node
@@ -229,7 +199,7 @@ def main():
     nodes_list = [node['id'] for node in init_state.network.get('nodes')]
     sf_list = list(init_state.service_functions.keys())
     sfc_list = list(init_state.sfcs.keys())
-    ingress_nodes, nodes_cap = get_ingress_nodes_and_cap(simulator.network)
+    ingress_nodes, nodes_cap = get_ingress_nodes_and_cap(simulator.network, cap=True)
     # getting the placement and schedule
     placement, schedule = get_placement_schedule(simulator.network, nodes_list, sf_list, sfc_list, ingress_nodes,
                                                  nodes_cap)

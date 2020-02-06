@@ -16,7 +16,7 @@ dev_requirements = []
 
 setup(
     name='coord-interface',
-    version='0.0.1',
+    version='0.0.2',
     description="Interface definition between coordination algorithms and environments. "
                 "Includes a dummy algorithm and environment as example.",
     url='https://github.com/RealVNF/coord-interface',
@@ -31,9 +31,9 @@ setup(
     zip_safe=False,
     entry_points={
         'console_scripts': [
-            "dummy-coord=dummy_algo.coordinator:main",
-            "lb=non_RL_algos.loadBalance:main",
-            "sp=non_RL_algos.shortestPath:main"
+            "rs=algorithms.randomSchedule:main",
+            "lb=algorithms.loadBalance:main",
+            "sp=algorithms.shortestPath:main"
         ],
     },
 )

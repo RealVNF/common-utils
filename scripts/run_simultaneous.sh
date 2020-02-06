@@ -8,6 +8,7 @@ networks='scripts/network_files.txt'
 service_functions='scripts/service_files.txt'
 configs='scripts/config_files.txt'
 # (un)comment the Algorithm you want to use
+#algo='rs'
 #algo='lb'
 algo='sp'
 

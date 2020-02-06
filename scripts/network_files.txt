@@ -1,5 +1,5 @@
-res/networks/abilene/abilene-in1-cap1.graphml
-res/networks/abilene/abilene-in2-cap1.graphml
-res/networks/abilene/abilene-in3-cap1.graphml
-res/networks/abilene/abilene-in4-cap1.graphml
-res/networks/abilene/abilene-in5-cap1.graphml
+res/networks/abilene/abilene-in1-cap6.graphml
+res/networks/abilene/abilene-in2-cap6.graphml
+res/networks/abilene/abilene-in3-cap6.graphml
+res/networks/abilene/abilene-in4-cap6.graphml
+res/networks/abilene/abilene-in5-cap6.graphml

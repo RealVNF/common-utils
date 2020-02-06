@@ -1,12 +1,12 @@
 # coord-env-interface
-Interface definition between coordination algorithms and environments. Includes a dummy algorithm, Non-RL algorithms(Shortest Path, Load Balance) and environment as example.
+Interface definition between coordination algorithms and environments. Includes Non-RL algorithms(Random Schedule, Shortest Path, Load Balance) and environment as example.
 
 ## Project structure
 
 * `src/spinterface`: Interface definition between the scale and place algorithm and the environment.
-* `src/dummy-algo`: Dummy algorithm implementation.
+* `src/algorithms`: Random Schedule, Shortest Path and Load Balance algorithm implementation.
 * `src/dummy-env`: Dummy environment/simulation implementation.
-* `src/non_RL_algos`: Shortest Path and Load Balance algorithms implementation
+
 
 ## Interface definition
 
@@ -23,11 +23,19 @@ To pass the information, we utilizes two data classes:
 * `SimulatorAction` to pass the scaling and placement to the environment.
 * `simulatorState` to report back the current State of the environment.
 
-## Load Balance algorithm
+## Algorithms
 
-Always returna equal distribution for all nodes and SFs. Places all SFs everywhere.
+### Random Schedule
 
-## Shortest Path algorithm
+* Places all VNFs on all nodes of the networks
+* Creats random schedules for each source node, each SFC, each SF , each destination node
+* All the schedules for an SF sum-up to 1
+
+### Load Balance algorithm
+
+Always returns equal distribution for all nodes and SFs. Places all SFs everywhere.
+
+### Shortest Path algorithm
 
 Based on network topology, SFC, and ingress nodes, calculates for each ingress node:
 * Puts 1st VNF on ingress, 2nd VNF on closest neighbor, 3rd VNF again on closest neighbor of 2nd VNF and so on.
@@ -52,15 +60,15 @@ To use the interface you need to require this module and import the needed class
 For a more detailed explanation take a look into the dummy implementations:
 `src/dummy_algo/coordinator.py` and `src/dummy_env/dummy_simulator.py`
 
-### How to run the dummy algorithm against the dummy environment
+### How to run the Random Schedule algorithm against the dummy environment
 
 ```bash
-dummy-coord -n "res/networks/triangle.graphml" \
-            -sf "res/service_functions/abc.yaml" \
-            -c "res/config/sim_config.yaml" \
-            -i 200
+rs -n "res/networks/triangle.graphml" \
+   -sf "res/service_functions/abc.yaml" \
+   -c "res/config/sim_config.yaml" \
+   -i 200
 ```
-For more information look at the [README](src/dummy_algo/README.md) of the dummy algorithm.
+For more information look at the [README](src/algorithms/README.md) of the Random Schedule.
 
 ### How to run the Load Balance algorithm against the SimulatorState
 
