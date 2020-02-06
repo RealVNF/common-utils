@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+import os
 from setuptools import setup, find_packages
+
+os.system('pip install git+https://github.com/RealVNF/coordination-simulation.git')
 
 requirements = [
     'numpy',
@@ -18,7 +21,7 @@ setup(
     name='coord-interface',
     version='0.0.2',
     description="Interface definition between coordination algorithms and environments. "
-                "Includes a dummy algorithm and environment as example.",
+                "Includes Non-RL algorithms and environment as example.",
     url='https://github.com/RealVNF/coord-interface',
     package_dir={'': 'src'},
     packages=find_packages('src'),
