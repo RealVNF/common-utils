@@ -3,8 +3,9 @@ python:
   - "3.6"
 
 install:
-  - pip install git+https://github.com/RealVNF/coord-env-interface.git'
-  - pip install git+https://github.com/RealVNF/coordination-simulation.git'
+  - import os
+  - os.system('pip install git+https://github.com/RealVNF/coord-env-interface.git')
+  - os.system('pip install git+https://github.com/RealVNF/coordination-simulation.git')
 
 script:
   - flake8 src
