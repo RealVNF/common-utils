@@ -1,10 +1,10 @@
-# dummy-algo
+# random-scheduling-algo
 
-Dummy coordinator for VNF placement and scheduling. Integrated with the NFV flow simulator.
+Random Scheduling coordinator for VNF placement and scheduling. Integrated with the NFV flow simulator.
 
 ## Coordination
 
-Simple dummy coordinator for placement and scheduling/load balancing of VNFs and flows:
+Simple Random Scheduling coordinator for placement and scheduling/load balancing of VNFs and flows:
 
 * Place all VNFs at all nodes
 * Schedule flows randomly in each iteration
@@ -41,7 +41,7 @@ pip install .
 ## Usage
 
 ```
-usage: dummy-coord [-h] [-i ITERATIONS] [-s SEED] -n NETWORK -sf
+usage: rs [-h] [-i ITERATIONS] [-s SEED] -n NETWORK -sf
                    SERVICE_FUNCTIONS -c CONFIG
 
 Dummy Coordinator
@@ -56,11 +56,11 @@ optional arguments:
 ```
 Use the following command as an example (from within dummy-coordinator project folder):
 ```bash
-dummy-coord -n "res/networks/triangle.graphml" \
+rs -n "res/networks/triangle.graphml" \
             -sf "res/service_functions/abc.yaml" \
             -c "res/config/sim_config.yaml" \
-            -i 50
+            -i 200
 ```
 
-This will run the dummy coordinator and call the `apply()` of the sim-interface for 50 times.
+This will run the random-scheduling coordinator and call the `apply()` of the sim-interface for 200 times.
 The Network metrics would be logged at the `INFO` level.

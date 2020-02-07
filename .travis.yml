@@ -3,8 +3,8 @@ python:
   - "3.6"
 
 install:
-  - pip install -r requirements.txt
+  - python setup.py install
 
 script:
   - flake8 src
-  - dummy-coord -n "res/networks/triangle.graphml" -sf "res/service_functions/abc.yaml" -c "res/config/sim_config.yaml" -i 50
+  - rs -n "res/networks/triangle.graphml" -sf "res/service_functions/abc.yaml" -c "res/config/sim_config.yaml" -i 50

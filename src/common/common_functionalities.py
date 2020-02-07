@@ -2,6 +2,8 @@ import numpy as np
 import os
 import yaml
 import networkx as nx
+from pathlib import Path
+from shutil import copyfile
 
 # url = 'https://github.com/numpy/numpy/blob/master/numpy/random/mtrand.pyx#L778'
 # a threshold for floating point arithmetic error handling
@@ -69,3 +71,42 @@ def num_ingress(network_path):
         if node[1]["NodeType"] == "Ingress":
             no_ingress += 1
     return no_ingress
+
+
+def copy_input_files(target_dir, network_path, service_path, sim_config_path):
+    """Create the results directory and copy input files"""
+    new_network_path = f"{target_dir}/{os.path.basename(network_path)}"
+    new_service_path = f"{target_dir}/{os.path.basename(service_path)}"
+    new_sim_config_path = f"{target_dir}/{os.path.basename(sim_config_path)}"
+
+    os.makedirs(target_dir, exist_ok=True)
+    copyfile(network_path, new_network_path)
+    copyfile(service_path, new_service_path)
+    copyfile(sim_config_path, new_sim_config_path)
+
+
+def get_project_root():
+    """Returns project's root folder."""
+    return str(Path(__file__).parent.parent.parent)
+
+
+def get_ingress_nodes_and_cap(network, cap=False):
+    """
+    Gets a NetworkX DiGraph and returns a list of ingress nodes in the network and the largest capacity of nodes
+    Parameters:
+        network: NetworkX Digraph
+        cap: boolean to return the capacity also if True
+    Returns:
+        ing_nodes : a list of Ingress nodes in the Network
+        node_cap : the single largest capacity of all the nodes of the network
+    """
+    ing_nodes = []
+    node_cap = {}
+    for node in network.nodes(data=True):
+        node_cap[node[0]] = node[1]['cap']
+        if node[1]["type"] == "Ingress":
+            ing_nodes.append(node[0])
+    if cap:
+        return ing_nodes, node_cap
+    else:
+        return ing_nodes
