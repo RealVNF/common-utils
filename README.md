@@ -51,6 +51,8 @@ Requires [Python 3.6](https://www.python.org/downloads/release/) and (recommende
 python setup.py install
 ```
 
+Then install the simulator: https://github.com/RealVNF/coordination-simulation
+
 ## Usage
 
 To use the interface you need to require this module and import the needed classes:
