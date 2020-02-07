@@ -10,7 +10,7 @@ from common.common_functionalities import normalize_scheduling_probabilities, ge
     get_ingress_nodes_and_cap, copy_input_files, create_input_file
 # for use with the flow-level simulator https://github.com/RealVNF/coordination-simulation (after installation)
 from siminterface.simulator import Simulator
-from spinterface import SimulatorAction
+from spinterface.spinterface import SimulatorAction
 
 # select which simulator to use by (un-)commenting the corresponding imports
 # from dummy_env import DummySimulator as Simulator

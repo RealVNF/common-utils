@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+import os
 from setuptools import setup, find_packages
 
-
+os.system('pip install git+https://github.com/RealVNF/coordination-simulation.git')
 
 requirements = [
+    'numpy',
     'networkx',
     'PyYAML',
 ]

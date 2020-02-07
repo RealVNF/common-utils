@@ -8,7 +8,7 @@ from datetime import datetime
 from common.common_functionalities import normalize_scheduling_probabilities, create_input_file, get_project_root, \
     copy_input_files, get_ingress_nodes_and_cap
 from siminterface.simulator import Simulator
-from spinterface import SimulatorAction
+from spinterface.spinterface import SimulatorAction
 
 log = logging.getLogger(__name__)
 DATETIME = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
