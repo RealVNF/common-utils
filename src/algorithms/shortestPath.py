@@ -207,7 +207,7 @@ def main():
     # iterations define the number of time we wanna call apply(); use tqdm for progress bar
     log.info(f"Running for {args.iterations} iterations...")
     for i in tqdm(range(args.iterations)):
-        apply_state = simulator.apply(action)
+        _ = simulator.apply(action)
         # log.info("Network Stats after apply() # %s: %s", i + 1, apply_state.network_stats)
     # We copy the input files(network, simulator config....) to  the results directory
     copy_input_files(results_dir, os.path.abspath(args.network), os.path.abspath(args.service_functions),
