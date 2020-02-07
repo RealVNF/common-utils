@@ -1,7 +1,3 @@
---index-url https://pypi.python.org/simple/
-
---editable git://github.com/RealVNF/coord-env-interface#egg=coord-interface
 --editable git://github.com/RealVNF/coordination-simulation#egg=coord-sim
+--editable git://github.com/RealVNF/coord-env-interface#egg=coord-interface
 
---editable .
---editable .[dev]
