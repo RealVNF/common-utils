@@ -57,33 +57,22 @@ To use the interface you need to require this module and import the needed class
 
 `from spinterface import SimulatorAction, SimulatorInterface, SimulatorState`
 
-For a more detailed explanation take a look into the dummy implementations:
-`src/dummy_algo/coordinator.py` and `src/dummy_env/dummy_simulator.py`
 
 ### How to run the Random Schedule algorithm against the Simulator
 
 ```bash
-rs -n "res/networks/triangle.graphml" \
-   -sf "res/service_functions/abc.yaml" \
-   -c "res/config/sim_config.yaml" \
-   -i 200
+rs -n "res/networks/triangle.graphml" -sf "res/service_functions/abc.yaml" -c "res/config/sim_config.yaml" -i 200
 ```
 For more information look at the [README](src/algorithms/README.md) of the Random Schedule.
 
 ### How to run the Load Balance algorithm against the Simulator
 
 ```bash
-lb -n "res/networks/triangle.graphml" \
-   -sf "res/service_functions/abc.yaml" \
-   -c "res/config/sim_config.yaml" \
-   -i 200
+lb -n "res/networks/triangle.graphml" -sf "res/service_functions/abc.yaml" -c "res/config/sim_config.yaml" -i 200
 ```
 
 ### How to run the Load Balance algorithm against the Simulator
 
 ```bash
-sp -n "res/networks/triangle.graphml" \
-   -sf "res/service_functions/abc.yaml" \
-   -c "res/config/sim_config.yaml" \
-   -i 200
+sp -n "res/networks/triangle.graphml" -sf "res/service_functions/abc.yaml" -c "res/config/sim_config.yaml" -i 200
 ```

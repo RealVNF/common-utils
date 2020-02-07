@@ -2,10 +2,10 @@
 from setuptools import setup, find_packages
 
 
-
 requirements = [
     'networkx',
     'PyYAML',
+    'tqdm'
 ]
 
 test_requirements = [
@@ -16,7 +16,7 @@ test_requirements = [
 
 setup(
     name='coord-interface',
-    version='0.0.2',
+    version='0.1.0',
     description="Interface definition between coordination algorithms and environments. "
                 "Includes Non-RL algorithms and environment as example.",
     url='https://github.com/RealVNF/coord-interface',
