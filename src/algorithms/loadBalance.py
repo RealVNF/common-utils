@@ -4,7 +4,7 @@ import os
 import random
 from collections import defaultdict
 from datetime import datetime
-
+from tqdm import tqdm
 from common.common_functionalities import normalize_scheduling_probabilities, create_input_file, copy_input_files, \
     get_project_root, get_ingress_nodes_and_cap
 from siminterface.simulator import Simulator
@@ -86,9 +86,8 @@ def main():
     args = parse_args()
     if not args.seed:
         args.seed = random.randint(1, 9999)
-    os.makedirs("logs", exist_ok=True)
-    logging.basicConfig(filename="logs/{}_{}_{}.log".format(os.path.basename(args.network),
-                                                            DATETIME, args.seed), level=logging.INFO)
+    # os.makedirs("logs", exist_ok=True)
+    logging.basicConfig(level=logging.INFO)
     logging.getLogger("coordsim").setLevel(logging.WARNING)
 
     # Creating the results directory variable where the simulator result files will be written
@@ -116,14 +115,16 @@ def main():
     # Since the placement and the schedule are fixed , the action would also be the same throughout
     action = SimulatorAction(placement, schedule)
     # iterations define the number of time we wanna call apply()
-    for i in range(args.iterations):
-        apply_state = simulator.apply(action)
-        log.info("Network Stats after apply() # %s: %s", i + 1, apply_state.network_stats)
+    log.info(f"Running for {args.iterations} iterations...")
+    for i in tqdm(range(args.iterations)):
+        _ = simulator.apply(action)
+        # log.info("Network Stats after apply() # %s: %s", i + 1, apply_state.network_stats)
     # We copy the input files(network, simulator config....) to  the results directory
     copy_input_files(results_dir, os.path.abspath(args.network), os.path.abspath(args.service_functions),
                      os.path.abspath(args.config))
     # Creating the input file in the results directory containing the num_ingress and the Algo used attributes
     create_input_file(results_dir, len(ingress_nodes), "Load Balance")
+    log.info(f"Saved results in {results_dir}")
 
 
 if __name__ == '__main__':

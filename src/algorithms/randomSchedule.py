@@ -5,7 +5,7 @@ import random
 from collections import defaultdict
 from datetime import datetime
 from random import uniform
-
+from tqdm import tqdm
 from common.common_functionalities import normalize_scheduling_probabilities, get_project_root, \
     get_ingress_nodes_and_cap, copy_input_files, create_input_file
 # for use with the flow-level simulator https://github.com/RealVNF/coordination-simulation (after installation)
@@ -96,9 +96,8 @@ def main():
     args = parse_args()
     if not args.seed:
         args.seed = random.randint(1, 9999)
-    os.makedirs("logs", exist_ok=True)
-    logging.basicConfig(filename="logs/{}_{}_{}.log".format(os.path.basename(args.network),
-                                                            DATETIME, args.seed), level=logging.INFO)
+    # os.makedirs("logs", exist_ok=True)
+    logging.basicConfig(level=logging.INFO)
     logging.getLogger("coordsim").setLevel(logging.WARNING)
 
     # Creating the results directory variable where the simulator result files will be written
@@ -122,17 +121,18 @@ def main():
     # we place every sf in each node of the network, so placement is calculated only once
     placement = get_placement(nodes_list, sf_list)
     # iterations define the number of time we wanna call apply()
-    for i in range(args.iterations):
+    log.info(f"Running for {args.iterations} iterations...")
+    for i in tqdm(range(args.iterations)):
         schedule = get_schedule(nodes_list, sf_list, sfc_list)
         action = SimulatorAction(placement, schedule)
-        apply_state = simulator.apply(action)
-        log.info("Network Stats after apply() # %s: %s", i + 1, apply_state.network_stats)
+        _ = simulator.apply(action)
 
     # We copy the input files(network, simulator config....) to  the results directory
     copy_input_files(results_dir, os.path.abspath(args.network), os.path.abspath(args.service_functions),
                      os.path.abspath(args.config))
     # Creating the input file in the results directory containing the num_ingress and the Algo used attributes
     create_input_file(results_dir, len(ingress_nodes), "Random Schedule")
+    log.info(f"Saved results in {results_dir}")
 
 
 if __name__ == '__main__':
