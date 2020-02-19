@@ -7,16 +7,20 @@
 networks='scripts/network_files.txt'
 service_functions='scripts/service_files.txt'
 configs='scripts/config_files.txt'
+seeds='scripts/30seeds.txt'
 # (un)comment the Algorithm you want to use
 #algo='rs'
-#algo='lb'
-algo='sp'
+algo='lb'
+#algo='sp'
 
 printf "\n\n-----------------------Running Non-RL Algo-------------------------\n\n"
   
 paste $networks $service_functions $configs | while IFS="$(printf '\t')" read -r f1 f2 f3
 do
-  $algo -n $f1 -sf $f2 -c $f3 -i 200
+  paste $seeds | while IFS="$(printf '\t')" read -r f4
+  do
+    $algo -n $f1 -sf $f2 -c $f3 -i 200 -s $f4
+  done
 done
 
 printf "\n\n---------------------Finished running Non-RL Algo-------------------\n\n"

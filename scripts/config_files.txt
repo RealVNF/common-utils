@@ -1,5 +1,5 @@
-res/config/rand-arrival10_det-size001_duration100_states.yaml
-res/config/rand-arrival10_det-size001_duration100_states.yaml
-res/config/rand-arrival10_det-size001_duration100_states.yaml
-res/config/rand-arrival10_det-size001_duration100_states.yaml
-res/config/rand-arrival10_det-size001_duration100_states.yaml
+res/config/rand-mmp-arrival10-5_det-size001_dur100.yaml
+res/config/rand-mmp-arrival10-5_det-size001_dur100.yaml
+res/config/rand-mmp-arrival10-5_det-size001_dur100.yaml
+res/config/rand-mmp-arrival10-5_det-size001_dur100.yaml
+res/config/rand-mmp-arrival10-5_det-size001_dur100.yaml

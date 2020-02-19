@@ -12,4 +12,4 @@ run_duration: 100                   # default: 100
 
 # Optional: Trace file trace relative to the CWD.
 # Until values start in the trace file, the defaults from this file are used
-trace_path: res/traces/scenario10.csv
+trace_path: res/traces/scenario10dur100.csv
