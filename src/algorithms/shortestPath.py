@@ -213,7 +213,7 @@ def main():
     copy_input_files(results_dir, os.path.abspath(args.network), os.path.abspath(args.service_functions),
                      os.path.abspath(args.config))
     # Creating the input file in the results directory containing the num_ingress and the Algo used attributes
-    create_input_file(results_dir, len(ingress_nodes), "Shortest Path")
+    create_input_file(results_dir, len(ingress_nodes), "SP")
     log.info(f"Saved results in {results_dir}")
 
 
