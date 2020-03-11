@@ -5,31 +5,23 @@ from setuptools import setup, find_packages
 requirements = [
     'networkx',
     'PyYAML',
-    'tqdm'
+    'numpy'
 ]
 
 test_requirements = [
-    'flake8',
-    'nose2'
+    'flake8'
 ]
 
 
 setup(
-    name='coord-interface',
+    name='common-utils',
     version='0.1.0',
     description="Interface definition between coordination algorithms and environments. "
-                "Includes Non-RL algorithms and environment as example.",
-    url='https://github.com/RealVNF/coord-interface',
+                "Includes a dummy environment.",
+    url='https://github.com/RealVNF/common-utils',
     package_dir={'': 'src'},
     packages=find_packages('src'),
     install_requires=requirements + test_requirements,
     tests_require=test_requirements,
     zip_safe=False,
-    entry_points={
-        'console_scripts': [
-            "rs=algorithms.randomSchedule:main",
-            "lb=algorithms.loadBalance:main",
-            "sp=algorithms.shortestPath:main"
-        ],
-    },
 )
