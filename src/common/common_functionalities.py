@@ -2,7 +2,6 @@ import numpy as np
 import os
 import yaml
 import networkx as nx
-from pathlib import Path
 from shutil import copyfile
 
 # url = 'https://github.com/numpy/numpy/blob/master/numpy/random/mtrand.pyx#L778'
@@ -83,11 +82,6 @@ def copy_input_files(target_dir, network_path, service_path, sim_config_path):
     copyfile(network_path, new_network_path)
     copyfile(service_path, new_service_path)
     copyfile(sim_config_path, new_sim_config_path)
-
-
-def get_project_root():
-    """Returns project's root folder."""
-    return str(Path(__file__).parent.parent.parent)
 
 
 def get_ingress_nodes_and_cap(network, cap=False):
