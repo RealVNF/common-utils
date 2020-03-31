@@ -15,7 +15,8 @@ test_requirements = [
 
 setup(
     name='common-utils',
-    version='0.1.0',
+    version='1.0.0',
+    author="RealVNF",
     description="Interface definition between coordination algorithms and environments. "
                 "Includes a dummy environment.",
     url='https://github.com/RealVNF/common-utils',
