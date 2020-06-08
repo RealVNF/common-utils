@@ -31,7 +31,7 @@ def normalize_scheduling_probabilities(input_list: list) -> list:
     # sum can also be 0 if some elements of the list are negative.
     # In our case the list contains probabilities and they are not supposed to be negative, hence the case won't arise
     if sum(input_list) == 0:
-        output_list = [round(1 / len(input_list), 2)] * len(input_list)
+        output_list = [round(1 / len(input_list), 10)] * len(input_list)
 
     # Because of floating point precision (.59 + .33 + .08) can be equal to .99999999
     # So we correct the sum only if the absolute difference is more than a tolerance(0.000000014901161193847656)
@@ -39,7 +39,7 @@ def normalize_scheduling_probabilities(input_list: list) -> list:
         if abs(offset) > accuracy:
             sum_list = sum(input_list)
             # we divide each number in the list by the sum of the list, so that Prob. Distribution is approx. 1
-            output_list = [round(prob / sum_list, 2) for prob in input_list]
+            output_list = [round(prob / sum_list, 10) for prob in input_list]
         else:
             output_list = input_list.copy()
 
