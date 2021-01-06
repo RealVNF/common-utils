@@ -3,9 +3,9 @@ from setuptools import setup, find_packages
 
 
 requirements = [
-    'networkx',
+    'networkx==2.4',
     'PyYAML',
-    'numpy'
+    'numpy>=1.16.5,<1.19'
 ]
 
 test_requirements = [
